@@ -17,6 +17,8 @@ var halflingRoll1 = 0;
 var halflingRoll2 = 0;
 var houseRate = 1;
 
+var splitFlag = 0;
+
 var splitRoll1 = 0;
 var splitRoll2 = 0;
 
@@ -24,6 +26,10 @@ var legendRoll1 = 0;
 var legendRoll2 = 0;
 var legendRoll3 = 0;
 var legendRoll4 = 0;
+
+let eventTextUpdate;
+
+let textIndex = 0;
 
 const goldText = document.querySelector("#goldText");
 const potText = document.querySelector("#potText");
@@ -48,70 +54,31 @@ const wagerSubmit = document.querySelector("#wagerSubmit");
 
 const eventLogText = document.querySelector("#eventLog");
 
-const gameEvents = [
-    {
-        name: "enterWager",
-        text: "Enter a wager to begin."
-    },
-    {
-        name: "blankWager",
-        text: "Your wager must be a number, and cannot be 0 or less."
-    },
-    {
-        name: "wagerAlreadyPlaced",
-        text: "You have already submitted a wager, you cannot submit another one."
-    },
-    {
-        name: "negativeWager",
-        text: 'Your wager cannot be negative. Nice try though.\n<img src="./img/cat_glare.gif">'
-    },
-    {
-        name: "notEnoughGold",
-        text: "You cannot wager more gold than you have. You currently have " + gold + " gold."
-    },
-    {
-        name: "giantRolls",
-        text: "The giant rolls a d10. The knee is set to " + giantRoll + "."
-    },
-    {
-        name: "payoutRate",
-        text: "The payout rate for this knee is " + houseRate + ":1."
-    },
-    {
-        name: "giantKicks"
-    },
-    {
-        name: "giantScared"
-    },
-    {
-        name: "halflingsEaten"
-    },
-    {
-        name: "kneeMissed"
-    },
-    {
-        name: "kneeHit"
-    },
-    {
-        name: "kneeSplit"
-    },
-    {
-        name: "startNewRound",
-        text: 'Click "Start Round" to start a new round.'
-    },
-];
+const buttonRules = document.querySelector("#buttonRules");
+const buttonEvents = document.querySelector("#buttonEvents");
+const buttonPayouts = document.querySelector("#buttonPayouts");
+const helpText = document.querySelector("#helpText");
+
+const gameHelp = [
+    '<p>Halflings and Giants is a game of chance where you, the Halflings, gamble against the house, the Giant.</p><p>By rolling two six sided die the Halflings need to beat the Giant\'s roll of a single ten sided die. The game begins with the Halflings placing a wager into the pot. The Giant then rolls setting the "Knee." The Halfling, you the player, then click to roll each die individually. You are trying to roll higher than the Knee. If you succeed, you get varying levels of payout depending on the height of the Knee.</p>',
+    '<ul><li>If the Giant rolls a 1, this is the "Kick." The Giant wins automatically.</li><li>If the Halflings roll two ones, that is the "Snake." The Giant flees in fear and the game resets to placing a wager.</li><li>If the Halflings roll an 11 or 12 they leap into the "Maw." This is another automatic win for the Giant.</li><li>If the Halflings hit the Knee exactly, they may chose to "split" their dice. The Halfling will then roll an additional two dice, and they will be paired with the existing halflings. Each pair rolled will follow the same rules as above.</li><ul><li>If the Halflings hit the Knee again while split they can choose to go "Legendary". In this situation, the player will roll an additional 4 dice, each being paired with one of the previous 4 rolls.</li></ul></ul>',
+    '<ul><li>If the Knee is 2-3, house pays 1:1</li><li>If the Knee is 4-6, house pays 2:1</li><li>If the Knee is 7-9, house pays 3:1</li><li>If the Knee is 10, house pays 5:1</li></ul>',
+    ''
+]
 
 function validateInput(inputValue) {
     const sanitizedValue = inputValue.trim();
     // console.log(sanitizedValue);
     if (sanitizedValue === "") {
-        fadeChange(eventLogText, gameEvents.find(x => x.name === "blankWager").text, 350);
+        eventTextUpdate = "Your wager cannot be blank.";
+        fadeChange(eventLogText, eventTextUpdate, 350);
         // alert("Wager cannot be blank!");
         return false;
     }
     return true;
 }
 
+// Text fading ref: https://stackoverflow.com/questions/74114504/how-to-make-text-fade-out-and-new-text-fade-in-on-change
 function fadeChange(targetText, targetVar, fadeTime) {
     targetText.setAttribute("class", "text-fade");
     setTimeout(() => {
@@ -120,23 +87,30 @@ function fadeChange(targetText, targetVar, fadeTime) {
     }, fadeTime)
 }
 
+/*
 function roundStart() {
     roundEarnings = 0;
 }
+*/
 
 function submitWager() {
     if (wager > 0) {
-        fadeChange(eventLogText, gameEvents.find(x => x.name === "wagerAlreadyPlaced").text, 350);
+        eventTextUpdate = "You have already placed a wage, you cannot place another one until this round is complete.";
+        fadeChange(eventLogText, eventTextUpdate, 350);
         // alert("You have already placed a wager!");
     } else {
         wager = wagerInput.value;
         if (validateInput(wager)) {
             wager = Math.floor(wager);
-            if (wager < 0) {
-                fadeChange(eventLogText, gameEvents.find(x => x.name === "negativeWager").text, 350);
+            if (wager < 1) {
+                eventTextUpdate = 'Your wager cannot be less than 1. Nice try though.<br><img src="./img/cat_glare.gif">';
+                fadeChange(eventLogText, eventTextUpdate, 350);
+                wager = 0;
                 // alert("You can't wager negative gold. Nice try.");
             } else if (wager > gold) {
-                fadeChange(eventLogText, gameEvents.find(x => x.name === "notEnoughGold").text, 350);
+                eventTextUpdate = "You cannot wager more gold than you have. You currently have " + gold + " gold.";
+                fadeChange(eventLogText, eventTextUpdate, 350);
+                wager = 0;
                 // alert("You can't wager more gold than you have!");
             } else {
                 gold -= wager;
@@ -163,13 +137,14 @@ function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// Text fading ref: https://stackoverflow.com/questions/74114504/how-to-make-text-fade-out-and-new-text-fade-in-on-change
 function rollGiant() {
     giantRoll = randomInt(1, 10);
     // console.log("Giant roll: " + giantRoll);
     fadeChange(giantRollText, giantRoll, 350);
     if (giantRoll === 1) {
         console.log("Giant kicks, Giant wins.");
+        eventTextUpdate = "The Giant kicks the Halflings before they can move, the Giant wins and you lose your wager.";
+        fadeChange(eventLogText, eventTextUpdate, 350);
         houseWins();
         kicks++;
         fadeChange(kicksText, kicks, 350);
@@ -186,13 +161,18 @@ function rollGiant() {
         } else {
             houseRate = 1;
         }
+        eventTextUpdate = "The Giant rolls a d10. The knee is set to " + giantRoll + ".<br>The payout rate for this knee is " + houseRate + ":1.";
+        fadeChange(eventLogText, eventTextUpdate, 350);
         pot = wager + (wager * houseRate);
+        fadeChange(potText, pot, 350);
     }
 }
 
 function rollHalflings() {
     if (giantRoll === 0) {
-        alert("You need to place a wager and have the Giant roll before you can roll your halflings!");
+        // alert("You need to place a wager and have the Giant roll before you can roll your halflings!");
+        eventTextUpdate = "You need to place a wager and have the Giant roll before you can roll your Halflings!";
+        fadeChange(eventLogText, eventTextUpdate, 350);
     } else {
         halflingRoll1 = randomInt(1, 6);
         // console.log("Halfling Roll 1: " + halflingRoll1);
@@ -203,6 +183,8 @@ function rollHalflings() {
         fadeChange(halflingRoll1Text, halflingRoll1, 350);
         fadeChange(halflingRoll2Text, halflingRoll2, 450);
         fadeChange(halflingRollTotalText, halflingTotal, 500);
+        checkRolls(halflingRoll1, halflingRoll2, giantRoll);
+        /*
         if (halflingTotal === 2) {
             // console.log("Giant is scared by a snake, bets push.");
             betsPush();
@@ -216,10 +198,60 @@ function rollHalflings() {
         } else {
             checkRolls();
         }
+        */
     }
 }
 
-function checkRolls() {
+function checkRolls(roll1, roll2, knee) {
+    rollsTotal = roll1 + roll2;
+    if (rollsTotal === 2) {
+        console.log("Giant is scared by a snake, bets push.");
+        eventTextUpdate = "The Giant sees a snake and runs in fear. Bets are reset.";
+        fadeChange(eventLogText, eventTextUpdate, 350);
+        betsPush();
+        snakes++;
+        fadeChange(snakesText, snakes, 350);
+        roundEnd();
+    } else if (rollsTotal === 11 || rollsTotal === 12) {
+        console.log("Halflings are consumed by the Maw, Giant wins.");
+        eventTextUpdate = "The Halflings miscalculate their attack and are consumed by the Giant. The Giant wins and you lose your wager.";
+        fadeChange(eventLogText, eventTextUpdate, 350);
+        houseWins();
+        maws++;
+        fadeChange(mawsText, maws, 350);
+        roundEnd();
+    } else if (rollsTotal < knee) {
+        console.log("Halflings miss the knee, Giant wins.");
+        eventTextUpdate = "The Halflings are unable to strike the Giant's knee and are crushed. The Giant wins and you lose your wager.";
+        fadeChange(eventLogText, eventTextUpdate, 350);
+        houseWins();
+        kneesMissed++;
+        fadeChange(kneesMissedText, kneesMissed, 350);
+        roundEnd();
+    } else if (rollsTotal > knee) {
+        console.log("Halflings hit the knee, Halflings win.");
+        eventTextUpdate = "The Halflings strike the Giants knee and fell the beast. You win " + pot + " gold!";
+        fadeChange(eventLogText, eventTextUpdate, 350);
+        playerWins();
+        kneesHit++;
+        fadeChange(kneesHitText, kneesHit, 350);
+        roundEnd();
+    } else if (rollsTotal === knee) {
+        // splitRolls();
+        console.log("Halflings split the knee.");
+        console.log(">> Not doing anything here yet.");
+        eventTextUpdate = "The Halflings split the knee! I haven't implemented this yet.";
+        fadeChange(eventLogText, eventTextUpdate, 350);
+        playerWins();
+        roundEnd();
+    } else {
+        console.log(">>>> HOW DID THIS HAPPEN");
+        eventTextUpdate = "How did you get here?";
+        fadeChange(eventLogText, eventTextUpdate, 350);
+        betsPush();
+        roundEnd();
+    }
+    /*
     if (halflingTotal < giantRoll) {
         // console.log("Giant wins");
         houseWins();
@@ -239,6 +271,7 @@ function checkRolls() {
         // console.log("I'm really not sure how this happened...")
         betsPush();
     }
+    */
 }
 
 function splitRolls() {
@@ -282,17 +315,21 @@ function legendarySplit() {
 
 function betsPush() {
     gold += wager;
+    roundEarnings += wager;
+    console.log("Round earnings: " + roundEarnings);
     fadeChange(goldText, gold, 350);
 }
 
 function houseWins() {
-    allWinnings -= roundEarnings;
+    allWinnings += roundEarnings;
     fadeChange(overallText, allWinnings, 350);
 }
 
 function playerWins() {
     gold += pot;
-    allWinnings += pot;
+    roundEarnings += pot;
+    console.log("Round earnings: " + roundEarnings);
+    allWinnings += roundEarnings;
     fadeChange(goldText, gold, 350);
     fadeChange(overallText, allWinnings, 350);
 }
@@ -303,9 +340,9 @@ function roundEnd() {
     giantRoll = 0;
     houseRate = 1;
     fadeChange(potText, pot, 350);
-    fadeChange(lastGameText, lastGame, 350);
     fadeChange(giantRollText, giantRoll, 350);
     fadeChange(lastGameText, roundEarnings, 350);
+    roundEarnings = 0;
     // console.log("Wager: " + wager);
     // console.log("[------------------------ RESETTING ------------------------]");
 }
@@ -318,6 +355,21 @@ function addGold() {
     gold += 500;
     fadeChange(goldText, gold, 350);
 }
+
+function updateHelp(page) {
+    if (textIndex !== page) {
+        fadeChange(helpText, gameHelp[page], 350);
+        textIndex = page;
+    } else {
+        fadeChange(helpText, gameHelp[3], 350);
+        textIndex = 3;
+    }
+}
+
+
+// buttonRules.onclick = fadeChange(helpText, gameHelp[0], 350);
+// buttonEvents.onclick = fadeChange(helpText, gameHelp[1], 350);
+// buttonPayouts.onclick = fadeChange(helpText, gameHelp[2], 350);
 /*
     Intriguing events:
 

@@ -34,7 +34,6 @@ body {
 }
 
 #giant {
-    background: darkred;
     width: 50%;
     height: 100%;
     float: left;
@@ -49,24 +48,26 @@ body {
 }
 
 #halflings {
-    background: midnightblue;
     width: 50%;
     height: 100%;
     float: left;
     text-align: center;
 }
 
-table {
+#game table {
     width: 100%;
 }
 
-table, th, td {
+#game table, #game th, #game td {
     border: 0px solid;
     border-collapse: collapse;
 }
+#giantRollTable{
+    height: 100%;
+}
 
 #halflingRolls {
-    height: 85%;
+    height: 90%;
 }
 
 .rolls {
@@ -81,8 +82,25 @@ table, th, td {
     font-size: 72px;
 }
 
+#rollHalflings {
+    font-size: 18px;
+    color: #fff;
+    background-color: #000;
+    border: 1px solid #fff;
+    padding: 5px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+#rollHalflings:hover {
+    color: #000;
+    background-color: #fff;
+}
+
 #stats {
-    background: darkgoldenrod;
     margin-left: 3px;
     width: 197px;
     height: 300px;
@@ -107,33 +125,117 @@ table, th, td {
 }
 
 #wagerBox {
+    margin-top: 30px;
     padding: 10px;
     margin-left: auto;
     margin-right: auto;
     width: 800px;
+    text-align: center;
 }
 
-#eventsText {
+#wagerBox input {
+    color: #fff;
+    background-color: #000;
+    border: 0px; 
+    border-bottom: 1px dashed dimgrey;
+    padding: 5px;
+}
+
+#wagerBox input:focus {
+    color: #000;
+    background-color: #fff;
+    outline: 0px;
+    border: 0px;
+    border-bottom: 1px solid white;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+#wagerSubmit {
+    cursor: pointer;
+    color: #fff;
+    background-color: #000;
+    border: 0px solid #fff;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+#wagerSubmit:hover {
+    color: #000;
+    background-color: #fff;
+}
+
+#wagerSubmit:active {
+    color: #fff;
+    background-color: darkred;
+}
+
+#eventsBox {
     padding: 10px;
     margin-left: auto;
     margin-right: auto;
-    width: 800px; 
+    width: 800px;
+    color: #fff;
 }
 
-#help {
+#helpBox {
     color: #fff;
     width: 800px;
     height: 200px;
-    margin-top: 5px;
+    margin-top: 30px;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 0px;
+}
+
+#helpBox button {
+    cursor: pointer;
+    color: #fff;
+    background-color: #000;
+    border: 0px solid #fff;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    margin-left: 3px;
+    margin-right: 3px;
+    font-size: 18px;
+    text-decoration: underline;
+}
+
+#helpBox button:hover {
+    text-decoration: underline;
+    text-decoration-color: darkred;;
+    -moz-text-decoration-color: darkred;
+    text-decoration-thickness: 3px;
 }
 
 /*
 Fade roll values in and out when they change
 Ref: https://stackoverflow.com/questions/74114504/how-to-make-text-fade-out-and-new-text-fade-in-on-change
 */
+
 
 .text-show {
     color: #fff;
@@ -158,9 +260,3 @@ Ref: https://stackoverflow.com/questions/74114504/how-to-make-text-fade-out-and-
 .hideThings {
     display: none;
 }
-
-/*
-.devButton {
-    display: none;
-}
-*/
