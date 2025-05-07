@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Giants & Halflings Game</title>
+</head>
+
+<body>
+    <div id="title">
+        <h1>
+            <p>Giants & Halflings</p>
+        </h1>
+    </div>
+    <div id="main">
+
+        <div id="game">
+            <div id="text">
+                <input type="number" id="wagerInput" placeholder="Input your wager here" required />
+                <button id="wagerSubmit" onclick="submitWager()">Submit wager</button>
+
+                <p><span class="rolls">The knee: <strong><span id="giantRoll">0</span></strong></span></p>
+
+                <p>
+                    <span>The payout rate for this knee is <strong><span id="payoutRate">1:1</span></strong></span>.<br>
+                    <span>You will win <strong><span id="goldPayout">0</span></strong> gold if you meet the knee.</span>
+                </p>
+
+                <button id="rollHalflings" onclick="rollHalflings()">Roll Halflings</button>
+                <p><span class="rolls">Halfling rolls: <strong><span id="halflingRoll1">0</span></strong> <strong><span
+                                id="halflingRoll2">0</span></strong></span><br>
+                    <span class="rolls">Total Halfling roll: <strong><span
+                                id="halflingRollTotal">0</span></strong></span>
+                </p>
+
+                <button class="devButton" onclick="rollGiant()">Test Giant</button>
+                <button class="devButton" onclick="rollHalflings()">Test Halflings</button>
+                <button class="devButton" onclick="houseWins()">House Wins</button>
+                <button class="devButton" onclick="betsPush()">Bets Push</button>
+                <button class="devButton" onclick="addGold()">Add Gold</button>
+            </div>
+        </div>
+
+        <div id="stats">
+            <p>
+                <span class="stat">Gold: <strong><span id="goldText">50</span></strong></span><br>
+                <span class="stat">Current Pot: <strong><span id="potText">0</span></strong></span>
+            </p>
+            <p>
+                <span class="stat">Last Game: <strong><span id="lastGameText">0</span></strong></span><br>
+                <span class="stat">Overall Winnings: <strong><span id="overallText">0</span></strong></span>
+            </p>
+            <p>
+                <span class="stat">Knees Hit: <strong><span id="kneesHitText">0</span></strong></span><br>
+                <span class="stat">Knees Missed: <strong><span id="kneesMissText">0</span></strong></span><br>
+                <span class="stat">Knees Split: <strong><span id="kneesSplitText">0</span></strong></span>
+            </p>
+            <p>
+                <span class="stat">Kicks: <strong><span id="kicksText">0</span></strong></span><br>
+                <span class="stat">Snakes: <strong><span id="snakesText">0</span></strong></span><br>
+                <span class="stat">Maws: <strong><span id="mawsText">0</span></strong></span>
+            </p>
+
+            <span class="stat">Legendary Runs: <strong><span id="legendaryText">0</span></strong></span>
+        </div>
+    </div>
+
+    <div id="help">
+        <button id="rules">The Rules</button>
+        <button id="events">Events</button>
+        <button id="payouts">Payouts</button>
+        <span id="helpText">
+            <p>Halflings and Giants is a game of chance where you, the Halflings, gamble against the house,
+                the Giant.</p>
+            <p>By rolling two six sided die the Halflings need to beat the Giant's roll of a single ten sided die.
+                The
+                game
+                begins with the Halflings placing a wager into the pot. The Giant then rolls setting the "Knee." The
+                Halfling, you the player, then click to roll each die individually. You are trying to roll higher
+                than
+                the
+                Knee. If you succeed, you get varying levels of payout depending on the height of the Knee.</p>
+        </span>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>

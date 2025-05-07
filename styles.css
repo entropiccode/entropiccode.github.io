@@ -1,0 +1,102 @@
+body {
+    background-color: #000;
+    font-family: sans-serif;
+}
+
+#title {
+    color: #fff;
+    text-align: center;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: -25px;
+}
+
+#main {
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    width: 800px;
+}
+
+#game {
+    color: #fff;
+    width: 598px;
+    height: 400px;
+    float: left;
+    margin-right: 2px;
+}
+
+#text {
+    padding: 10px;
+}
+
+#stats {
+    margin-left: 3px;
+    width: 197px;
+    height: 400px;
+    float: left;
+}
+
+.stat {
+    padding-left: 10px;
+    font-size: 14px;
+    color: #fff;
+}
+
+#goldText, #potText, #lastGameText, #overallText, #kneesHitText, #kneesMissText, #kneesSplitText, #kicksText, #snakesText, #mawsText, #legendaryText {
+    float: right;
+    padding-right: 20px;
+}
+
+#main:after {
+    clear:both;
+    display: table;
+    content: "";
+}
+
+#help {
+    color: #fff;
+    width: 800px;
+    height: 200px;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+}
+
+/*
+Fade roll values in and out when they change
+Ref: https://stackoverflow.com/questions/74114504/how-to-make-text-fade-out-and-new-text-fade-in-on-change
+*/
+
+.text-show {
+    color: #fff;
+    opacity: 1;
+    transition: all 1s ease;
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    -o-transition: all 1s ease;
+}
+
+.text-fade {
+    color: #fff;
+    opacity: 0;
+    transition: all 1s ease;
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    -o-transition: all 1s ease;
+}
+
+.hideThings {
+    display: none;
+}
+
+/*
+.devButton {
+    display: none;
+}
+*/
