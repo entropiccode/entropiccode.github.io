@@ -14,31 +14,36 @@
         </h1>
     </div>
     <div id="main">
-
         <div id="game">
-            <div id="text">
-                <input type="number" id="wagerInput" placeholder="Input your wager here" required />
-                <button id="wagerSubmit" onclick="submitWager()">Submit wager</button>
-
-                <p><span class="rolls">The knee: <strong><span id="giantRoll">0</span></strong></span></p>
-
-                <p>
-                    <span>The payout rate for this knee is <strong><span id="payoutRate">1:1</span></strong></span>.<br>
-                    <span>You will win <strong><span id="goldPayout">0</span></strong> gold if you meet the knee.</span>
-                </p>
-
-                <button id="rollHalflings" onclick="rollHalflings()">Roll Halflings</button>
-                <p><span class="rolls">Halfling rolls: <strong><span id="halflingRoll1">0</span></strong> <strong><span
-                                id="halflingRoll2">0</span></strong></span><br>
-                    <span class="rolls">Total Halfling roll: <strong><span
-                                id="halflingRollTotal">0</span></strong></span>
-                </p>
-
-                <button class="devButton" onclick="rollGiant()">Test Giant</button>
-                <button class="devButton" onclick="rollHalflings()">Test Halflings</button>
-                <button class="devButton" onclick="houseWins()">House Wins</button>
-                <button class="devButton" onclick="betsPush()">Bets Push</button>
-                <button class="devButton" onclick="addGold()">Add Gold</button>
+            <div id="rolls">
+                <div id="giant">
+                    <table id="giantRollTable">
+                        <tr>
+                            <td><span class="rolls">The Knee</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong><span id="giantRoll">0</span></strong></td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="halflings">
+                    <table id="halflingRolls">
+                        <tr>
+                            <td colspan="2"><span class="rolls">Halfling rolls</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong><span id="halflingRoll1">0</span></strong></td>
+                            <td><strong><span id="halflingRoll2">0</span></strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><span class="rolls">Total Halfling roll</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong><span id="halflingRollTotal">0</span></strong></td>
+                        </tr>
+                    </table>
+                    <button id="rollHalflings" onclick="rollHalflings()">Roll Halflings</button>
+                </div>
             </div>
         </div>
 
@@ -66,6 +71,16 @@
         </div>
     </div>
 
+    <div id="wagerBox">
+        <input type="number" id="wagerInput" placeholder="Input your wager here" required />
+        <button id="wagerSubmit" onclick="submitWager()">Submit wager</button>
+    </div>
+    <div id="eventsText">
+        <p>
+            <span id="eventLog">Enter a wager to begin.</span>
+        </p>
+    </div>
+
     <div id="help">
         <button id="rules">The Rules</button>
         <button id="events">Events</button>
@@ -83,7 +98,7 @@
                 Knee. If you succeed, you get varying levels of payout depending on the height of the Knee.</p>
         </span>
     </div>
-
+    
     <script src="./script.js"></script>
 </body>
 
