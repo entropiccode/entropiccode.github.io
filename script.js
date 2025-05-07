@@ -161,7 +161,7 @@ function rollGiant() {
         } else {
             houseRate = 1;
         }
-        eventTextUpdate = "The Giant rolls a d10. The knee is set to " + giantRoll + ".<br>The payout rate for this knee is " + houseRate + ":1.";
+        eventTextUpdate = "<p>The Giant rolls a d10. The knee is set to " + giantRoll + ".<br>The payout rate for this knee is " + houseRate + ":1.</p><p>Roll your Halflings to take on the Giant.</p>";
         fadeChange(eventLogText, eventTextUpdate, 350);
         pot = wager + (wager * houseRate);
         fadeChange(potText, pot, 350);
@@ -337,14 +337,17 @@ function playerWins() {
 function roundEnd() {
     wager = 0;
     pot = 0;
-    giantRoll = 0;
     houseRate = 1;
     fadeChange(potText, pot, 350);
-    fadeChange(giantRollText, giantRoll, 350);
     fadeChange(lastGameText, roundEarnings, 350);
     roundEarnings = 0;
     // console.log("Wager: " + wager);
     // console.log("[------------------------ RESETTING ------------------------]");
+    eventLogText.setAttribute("class", "text-fade");
+    setTimeout(() => {
+        eventLogText.innerHTML += "<p>Submit another wager to play again.</p>"
+        eventLogText.setAttribute("class", "text-show");
+    }, 350)
 }
 
 function restart() {
