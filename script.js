@@ -63,7 +63,9 @@ function submitWager() {
     if (validateInput(wager)) {
         wager = Math.floor(wager);
         console.log(wager);
-        if (wager > gold) {
+        if (wager < 0) {
+            alert("You can't wager negative gold. Nice try.");
+        } else if (wager > gold) {
             alert("You can't wager more gold than you have!");
         } else {
             gold -= wager;
