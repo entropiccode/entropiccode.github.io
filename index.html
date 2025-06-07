@@ -1,99 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="./styles.css">
+    <meta charset='utf-8'>
+    <link rel='stylesheet' href='./styles_new.css'>
     <title>Giants & Halflings Game</title>
 </head>
 
 <body>
-    <div id="title">
-        <h1>
-            <p>Giants & Halflings</p>
-        </h1>
-    </div>
-    <div id="main">
-        <div id="game">
-            <div id="rolls">
-                <div id="giant">
-                    <table id="giantRollTable">
-                        <tr>
-                            <td><span class="rolls">The Knee</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong><span id="giantRoll">0</span></strong></td>
-                        </tr>
-                    </table>
-                </div>
-                <div id="halflings">
-                    <table id="halflingRolls">
-                        <tr>
-                            <td colspan="2"><span class="rolls">Halfling rolls</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong><span id="halflingRoll1">0</span></strong></td>
-                            <td><strong><span id="halflingRoll2">0</span></strong></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><span class="rolls">Total Halfling roll</span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><strong><span id="halflingRollTotal">0</span></strong></td>
-                        </tr>
-                    </table>
-                    <button id="rollHalflings" onclick="playerRoll()">Roll Halflings</button>
-                </div>
+
+    <section id="player-stats-bar">
+        <div id="game-title">
+            <h1 class="texturina">Giants & Halflings</h1>
+        </div>
+        <div id="player-gold">
+            <p id="gold-value-text" class="stat germania-one">50</p>
+            <div id="header-coin-icon">
             </div>
         </div>
-
-        <div id="stats">
-            <p>
-                <span class="stat">Gold: <strong><span id="goldText">50</span></strong></span><br>
-                <span class="stat">Current Pot: <strong><span id="potText">0</span></strong></span>
-            </p>
-            <p>
-                <span class="stat">Last Game: <strong><span id="lastGameText">0</span></strong></span><br>
-                <span class="stat">Overall Winnings: <strong><span id="overallText">0</span></strong></span>
-            </p>
-            <p>
-                <span class="stat">Knees Hit: <strong><span id="kneesHitText">0</span></strong></span><br>
-                <span class="stat">Knees Missed: <strong><span id="kneesMissText">0</span></strong></span><br>
-                <span class="stat">Knees Split: <strong><span id="kneesSplitText">0</span></strong></span>
-            </p>
-            <p>
-                <span class="stat">Kicks: <strong><span id="kicksText">0</span></strong></span><br>
-                <span class="stat">Snakes: <strong><span id="snakesText">0</span></strong></span><br>
-                <span class="stat">Maws: <strong><span id="mawsText">0</span></strong></span>
-            </p>
-
-            <span class="stat">Legendary Runs: <strong><span id="legendaryText">0</span></strong></span>
+    </section>
+    <section id="game-area">
+        <div id="wager-input-container">
+            <input type="number" id="wager-input" class="germania-one" placeholder="Input wager here" min="1"
+                required />
+            <button id="wager-submit" class="texturina">Submit wager</button>
         </div>
-    </div>
+        <div id="giant-roll-container">
+            <div id="giant-roll-header-container">
+                <h2 class="texturina">Giant's roll</h2>
+            </div>
+            <div id="giant-roll-result-container">
+                <p id="giant-roll-result" class="germania-one">10</p>
+            </div>
+        </div>
+        <div id="player-roll-container">
+            <div id="player-roll-header-container">
+                <h2 class="texturina">Your rolls</h2>
+            </div>
+            <div id="player-roll-result-container">
+                <p id="player-roll-1" class="player-roll germania-one">6</p>
+                <p id="player-roll-2" class="player-roll germania-one">6</p>
+            </div>
+            <div id="player-roll-total-container">
+                <p id="player-roll-total" class="germania-one">12</p>
+            </div>
+        </div>
+        <div id="round-results-container">
+            <h2 id="round-results-header" class="texturina">GAME RESULT</h2>
+            <p id="round-results-desc" class="texturina">Description of the round result goes here</p>
+            <button id="play-again-btn" class="texturina">PLAY AGAIN?</button>
+        </div>
+        <div id="dev-buttons-container">
+            <button id="dev-add-gold-btn">Add Gold</button>
+            <button id="toggle-wager-input-vis">Toggle Wager Input</button>
+            <button id="toggle-giant-roll-vis">Toggle Giant Roll</button>
+            <button id="toggle-player-roll-vis">Toggle Player Roll</button>
+            <button id="toggle-round-results-vis">Toggle Round Results</button>
+        </div>
+    </section>
+    <section id="game-rules">GAME RULES</section>
 
-    <div id="wagerBox">
-        <input type="number" id="wagerInput" placeholder="Input your wager here" min="1" required />
-        <button id="wagerSubmit" onclick="submitWager()">Submit wager</button>
-    </div>
-
-    <div id="eventsBox">
-        <span id="eventLog">Enter a wager to begin.</span>
-    </div>
-
-    <div id="helpBox">
-        <button id="buttonRules" onclick="updateHelp(0)">The Rules</button>
-        <button id="buttonEvents" onclick="updateHelp(1)">Events</button>
-        <button id="buttonPayouts" onclick="updateHelp(2)">Payouts</button>
-        <span id="helpText">
-            <p>Halflings and Giants is a game of chance where you, the Halflings, gamble against the house, the Giant.
-            </p>
-            <p>By rolling two six sided die the Halflings need to beat the Giant's roll of a single ten sided die. The
-                game begins with the Halflings placing a wager into the pot. The Giant then rolls setting the "Knee."
-                The Halfling, you the player, then click to roll each die individually. You are trying to roll higher
-                than the Knee. If you succeed, you get varying levels of payout depending on the height of the Knee.</p>
-        </span>
-    </div>
-    <script src="./script.js"></script>
+    <script src="script_new.js"></script>
 </body>
 
 </html>
