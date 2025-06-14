@@ -8,57 +8,137 @@
 </head>
 
 <body>
+    <div id="title-bar-container">
+        <section id="title-bar">
+            <div id="game-title">
+                <h1 class="texturina">Giants & Halflings</h1>
+            </div>
+            <div id="player-gold">
+                <p id="gold-value-text" class="stat germania-one">50</p>
+                <div id="header-coin-icon">
+                </div>
+            </div>
+        </section>
+        <div id="tabs">
+            <button id="game-help-btn" class="sidebar-content-tab">Game Help</button>
+            <button id="event-log-btn" class="sidebar-content-tab">Event Log</button>
+            <button id="player-stats-btn" class="sidebar-content-tab">Player Stats</button>
+        </div>
+    </div>
+    <div id="content-container">
+        <section id="sidebar">
+            <div id="game-help-container" class="sidebar-content">
+                <h1>GAME HELP</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent efficitur aliquet mattis. Quisque
+                    vitae elementum massa. Praesent vel volutpat diam, ac efficitur dolor. Aenean blandit orci vel
+                    porttitor placerat. Suspendisse non libero velit. Mauris finibus tempus velit, ac fringilla ipsum
+                    imperdiet sed. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+                    curae; Quisque aliquet hendrerit magna ac lobortis. Fusce vestibulum metus ac rutrum volutpat.</p>
 
-    <section id="player-stats-bar">
-        <div id="game-title">
-            <h1 class="texturina">Giants & Halflings</h1>
-        </div>
-        <div id="player-gold">
-            <p id="gold-value-text" class="stat germania-one">50</p>
-            <div id="header-coin-icon">
+                <p>Morbi in volutpat lorem, bibendum consequat erat. Sed sagittis imperdiet purus. In at sem convallis,
+                    vulputate diam nec, facilisis dolor. Praesent scelerisque ultricies nulla a sagittis. Praesent ut
+                    lorem ornare, facilisis ligula sed, ullamcorper tortor. Donec id rutrum odio. Nam nec tortor eget
+                    diam sagittis suscipit ac non neque. Donec rhoncus erat eget erat suscipit, quis varius libero
+                    fermentum. Mauris sagittis, augue at tempus pharetra, orci dui volutpat enim, id vulputate urna ex
+                    sit amet quam. Curabitur laoreet euismod tortor, in faucibus mi varius ut. Vestibulum semper purus a
+                    luctus fringilla. Donec cursus sed lorem quis egestas. Aliquam nec metus nec augue egestas maximus
+                    quis nec nulla. Suspendisse convallis neque lorem, vitae condimentum lorem placerat eu.</p>
             </div>
-        </div>
-    </section>
-    <section id="game-area">
-        <div id="wager-input-container">
-            <input type="number" id="wager-input" class="germania-one" placeholder="Input wager here" min="1"
-                required />
-            <button id="wager-submit" class="texturina">Submit wager</button>
-        </div>
-        <div id="giant-roll-container">
-            <div id="giant-roll-header-container">
-                <h2 class="texturina">Giant's roll</h2>
+            <div id="event-log-container" class="sidebar-content">
+                <h1>EVENT LOG</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent efficitur aliquet mattis. Quisque
+                    vitae elementum massa. Praesent vel volutpat diam, ac efficitur dolor. Aenean blandit orci vel
+                    porttitor placerat. Suspendisse non libero velit. Mauris finibus tempus velit, ac fringilla ipsum
+                    imperdiet sed. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+                    curae; Quisque aliquet hendrerit magna ac lobortis. Fusce vestibulum metus ac rutrum volutpat.</p>
+
+                <p>Morbi in volutpat lorem, bibendum consequat erat. Sed sagittis imperdiet purus. In at sem convallis,
+                    vulputate diam nec, facilisis dolor. Praesent scelerisque ultricies nulla a sagittis. Praesent ut
+                    lorem ornare, facilisis ligula sed, ullamcorper tortor. Donec id rutrum odio. Nam nec tortor eget
+                    diam sagittis suscipit ac non neque. Donec rhoncus erat eget erat suscipit, quis varius libero
+                    fermentum. Mauris sagittis, augue at tempus pharetra, orci dui volutpat enim, id vulputate urna ex
+                    sit amet quam. Curabitur laoreet euismod tortor, in faucibus mi varius ut. Vestibulum semper purus a
+                    luctus fringilla. Donec cursus sed lorem quis egestas. Aliquam nec metus nec augue egestas maximus
+                    quis nec nulla. Suspendisse convallis neque lorem, vitae condimentum lorem placerat eu.</p>
             </div>
-            <div id="giant-roll-result-container">
-                <p id="giant-roll-result" class="germania-one">10</p>
+            <div id="player-stats-container" class="sidebar-content">
+                <h1>Player Stats</h1>
+                <h3>Earnings</h3>
+                <ul>
+                    <li><span class="stat-legend">Last Game: </span><span id="last-game-value"
+                            class="stat-value">0</span></li>
+                    <li><span class="stat-legend">Overall Winnings: </span><span id="overall-value"
+                            class="stat-value">0</span></li>
+                </ul>
+                <h3>Game Stats</h3>
+                <ul>
+                    <li><span class="stat-legend">Games: </span><span id="games-played-value"
+                            class="stat-value">0</span></li>
+                    <li><span class="stat-legend">Wins: </span><span id="knees-hit-value" class="stat-value">0</span>
+                    </li>
+                    <li><span class="stat-legend">Losses: </span><span id="knees-missed-value"
+                            class="stat-value">0</span></li>
+                    <li><span class="stat-legend">Splits: </span><span id="knees-split-value"
+                            class="stat-value">0</span></li>
+                </ul>
+                <h3>Event Stats</h3>
+                <ul>
+                    <li><span class="stat-legend">Kicks: </span><span id="kicks-value" class="stat-value">0</span></li>
+                    <li><span class="stat-legend">Snakes: </span><span id="snakes-value" class="stat-value">0</span>
+                    </li>
+                    <li><span class="stat-legend">Maws: </span><span id="maws-value" class="stat-value">0</span></li>
+                </ul>
+                <h3>Split Stats</h3>
+                <ul>
+                    <li><span class="stat-legend">Legendary Runs: </span><span id="legendary-count-value"
+                            class="stat-value">0</span></li>
+                    <li><span class="stat-legend">Deepest Run: </span><span id="deepest-legendary-run-value"
+                            class="stat-value">0</span></li>
+                </ul>
             </div>
-        </div>
-        <div id="player-roll-container">
-            <div id="player-roll-header-container">
-                <h2 class="texturina">Your rolls</h2>
+        </section>
+        <div id="game-area-container">
+            <div id="dev-buttons-container">
+                <button id="dev-add-gold-btn">Add Gold</button>
+                <button id="toggle-wager-input-vis">Toggle Wager Input</button>
+                <button id="toggle-giant-roll-vis">Toggle Giant Roll</button>
+                <button id="toggle-player-roll-vis">Toggle Player Roll</button>
+                <button id="toggle-round-results-vis">Toggle Round Results</button>
+                <button id="clear-local-data-btn">Clear localStorage</button>
             </div>
-            <div id="player-roll-result-container">
-                <p id="player-roll-1" class="player-roll germania-one">6</p>
-                <p id="player-roll-2" class="player-roll germania-one">6</p>
-            </div>
-            <div id="player-roll-total-container">
-                <p id="player-roll-total" class="germania-one">12</p>
-            </div>
+            <section id="game-area">
+                <div id="wager-input-container">
+                    <input type="number" id="wager-input" class="germania-one" placeholder="Input wager here" min="1"
+                        required />
+                    <button id="wager-submit" class="texturina">Submit Wager</button>
+                </div>
+                <div id="giant-roll-container">
+                    <div id="giant-roll-result-container">
+                        <span id="giant-roll-result" class="germania-one">10</span>
+                        <span id="giant-roll-size" class="dicier">D10</span>
+                        <h2 class="roll-container-header texturina">Giant's roll</h2>
+                    </div>
+                </div>
+                <div id="player-roll-container">
+                    <div id="player-roll-header-container">
+                        <h2 class="roll-container-header texturina">Your rolls</h2>
+                    </div>
+                    <div id="player-roll-result-container">
+                        <span id="player-roll-1" class="player-roll germania-one">6</span>
+                        <span class="result-other-text texturina">+</span>
+                        <span id="player-roll-2" class="player-roll germania-one">6</span>
+                        <span class="result-other-text texturina">=</span>
+                        <span id="player-roll-total" class="germania-one">12</span>
+                    </div>
+                </div>
+                <div id="round-results-container">
+                    <h2 id="round-results-header" class="texturina">GAME RESULT</h2>
+                    <p id="round-results-desc" class="texturina">Description of the round result goes here</p>
+                    <button id="play-again-btn" class="texturina">Play again?</button>
+                </div>
+            </section>
         </div>
-        <div id="round-results-container">
-            <h2 id="round-results-header" class="texturina">GAME RESULT</h2>
-            <p id="round-results-desc" class="texturina">Description of the round result goes here</p>
-            <button id="play-again-btn" class="texturina">PLAY AGAIN?</button>
-        </div>
-        <div id="dev-buttons-container">
-            <button id="dev-add-gold-btn">Add Gold</button>
-            <button id="toggle-wager-input-vis">Toggle Wager Input</button>
-            <button id="toggle-giant-roll-vis">Toggle Giant Roll</button>
-            <button id="toggle-player-roll-vis">Toggle Player Roll</button>
-            <button id="toggle-round-results-vis">Toggle Round Results</button>
-        </div>
-    </section>
-    <section id="game-rules">GAME RULES</section>
+    </div>
 
     <script src="script_new.js"></script>
 </body>

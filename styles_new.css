@@ -1,3 +1,4 @@
+/* FONTS */
 @import url('https://fonts.googleapis.com/css2?family=Germania+One&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&display=swap');
 
 @font-face {
@@ -29,6 +30,7 @@ Dice Shapes: Dicier
 */
 
 :root {
+    /* Color Variables */
     --gray900: #171717; /* Neutral 900 */
     --gray900s: #17171780;
     --gray800: #262626; /* Neutral 800 */
@@ -37,6 +39,15 @@ Dice Shapes: Dicier
     --gray500: #737373; /* Neutral 500 */
     --gray400: #a1a1a1; /* Neutral 400 */
     --white: #fafafa; /* Neutral 50 */
+    --white-s: #fafafa80;
+    --cyan950: #053345;
+    --cyan800: #005f78; /* Cyan 800 */
+    --cyan700: #007595;
+    --cyan600: #0092b8;
+    --teal500:#00bba7;
+    /* Element Sizing Variables */
+    --titlebar-height: 50px;
+    --sidebar-width: 450px;
 }
 
 /* Color notes refer to tailwind color picker: https: //tailwindcolor.com/ */
@@ -51,8 +62,12 @@ Dice Shapes: Dicier
 
 body {
     overflow: hidden;
+    background-color: var(--gray800);
 }
 
+ul {
+    list-style: none;
+}
 /* Animation classes for use with JS */
 .object-fade {
     opacity: 0;
@@ -72,17 +87,17 @@ body {
     -o-transition: opacity 0.2s ease;
 }
 
+
 /* TOP BAR */
 
-#player-stats-bar {
+#title-bar {
     background-color: var(--gray900);
     color: var(--white);
-    height: 50px;
+    height: var(--titlebar-height);
     width: 100%;
     padding: 0 50px 0 0;
-    position: fixed;
+    position: absolute;
     top: 0;
-    display: block;
     z-index: 999;
 }
 
@@ -93,8 +108,8 @@ body {
 }
 
 #game-title h1 {
-    font-size: 4rem;
     line-height: 4rem;
+    font-size: 4rem;
     text-shadow: 5px 5px #171717bf;
 }
 
@@ -112,7 +127,59 @@ body {
     text-align: right;
 }
 
-/* 
+/* Sidebar Content Tabs */
+
+#tabs {
+    position: absolute;
+    top: calc(var(--titlebar-height) - 10px);
+    right: 1rem;
+    z-index: 998;
+}
+
+.sidebar-content-tab {
+    width: calc((var(--sidebar-width) / 3) - 1.2rem);
+    height: calc(var(--titlebar-height) + 10px);
+    padding-top: 8px;
+    margin: 0 3px;
+    font-family: texturina, sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--white);
+    background-color: var(--gray600);
+    border: 0;
+    box-shadow: 5px 5px var(--gray900s);
+    border-radius: 0px 0px 8px 8px;
+    -webkit-border-radius: 0px 0px 8px 8px;
+    -moz-border-radius: 0px 0px 8px 8px;
+    -ms-border-radius: 0px 0px 8px 8px;
+    -o-border-radius: 0px 0px 8px 8px;
+    transition: transform 0.1s 0ms, background-color 0.7s 0ms;
+    -webkit-transition: transform 0.1s 0ms, background-color 0.7s 0ms;
+    -moz-transition: transform 0.1s 0ms, background-color 0.7s 0ms;
+    -ms-transition: transform 0.1s 0ms, background-color 0.7s 0ms;
+    -o-transition: transform 0.1s 0ms, background-color 0.7s 0ms;
+}
+
+.sidebar-content-tab:active {
+    box-shadow: 0 0;
+    transform: translate(5px, 5px);
+    -webkit-transform: translate(5px, 5px);
+    -moz-transform: translate(5px, 5px);
+    -ms-transform: translate(5px, 5px);
+    -o-transform: translate(5px, 5px);
+}
+
+.sidebar-content-tab:last-of-type {
+    margin: 0 0 0 3px;
+}
+
+.currently-showing-tab {
+    background-color: var(--cyan800);
+    font-weight: 700;
+    text-decoration: underline double var(--white-s);
+}
+
+/*
     Spinning coin courtesy of irmirx on opengameart.org
     https: //opengameart.org/content/spinning-pixel-coin-0
 */
@@ -137,12 +204,117 @@ body {
     animation-iteration-count: infinite;
 }
 
+#content-container {
+    position: relative;
+    top: var(--titlebar-height);
+    width: 100vw;
+    height: calc(100vh - var(--titlebar-height));
+}
+
+
+/* SIDEBAR */
+
+#sidebar {
+    color: var(--white);
+    background-color: var(--gray700);
+    position: relative;
+    top: 0px;
+    left: calc(100vw - var(--sidebar-width));
+    width: var(--sidebar-width);
+    height: 100%;
+    z-index: 1;
+    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    -o-transform: translateX(100%);
+    transition: transform 0.2s 0ms;
+    -webkit-transition: transform 0.2s 0ms;
+    -moz-transition: transform 0.2s 0ms;
+    -ms-transition: transform 0.2s 0ms;
+    -o-transition: transform 0.2s 0ms;
+    border-left: 3px solid var(--gray400);
+}
+
+.sidebar-content {
+    padding: 2rem;
+    padding-top: calc(var(--titlebar-height) + 1rem);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+/* Game Help */
+#game-help-container {
+    visibility: visibile;
+}
+/* Event Log */
+#event-log-container {
+    visibility: hidden;
+}
+/* Player Stats */
+#player-stats-container {
+    visibility: hidden;
+}
+
+#player-stats-container h1 {
+    font-family: texturina, sans-serif;
+    font-size: 2.2rem;
+    text-shadow: 5px 3px var(--gray900s);
+    display: block;
+    border-bottom: solid 2px var(--white);
+    box-shadow: 0 2px var(--gray900s);
+}
+
+#player-stats-container h3 {
+    font-family: texturina, sans-serif;
+    font-size: 1.8rem;
+    text-shadow: 5px 3px var(--gray900s);
+}
+
+.stat-legend {
+    font-family: texturina, sans-serif;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    padding-left: 30px;
+    font-weight: 500;
+}
+
+.stat-value {
+    font-family: 'Germania One', sans-serif;
+    font-size: 1.5rem;
+    line-height: 1.4;
+    position: absolute;
+    right: 55px;
+    vertical-align: center;
+    text-shadow: 3px 2px var(--gray900s);
+}
+
+
 /* GAME AREA */
+
+#game-area-container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    transition: width 0.2s 0ms;
+    -webkit-transition: width 0.2s 0ms;
+    -moz-transition: width 0.2s 0ms;
+    -ms-transition: width 0.2s 0ms;
+    -o-transition: width 0.2s 0ms;
+}
 
 #game-area {
     background-color: var(--gray800);
-    height: 100vh;
-    width: 100%;
+    position: relative;
+    margin: 0 auto;
+    height: 100%;
+    width: 800px;
 }
 
 
@@ -164,6 +336,10 @@ body {
     -moz-transition: opacity 0.2s 0ms;
     -ms-transition: opacity 0.2s 0ms;
     -o-transition: opacity 0.2s 0ms;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
 }
 
 #wager-input {
@@ -199,8 +375,9 @@ body {
     height: 100px;
     padding: 10px;
     font-size: 3.5rem;
+    font-weight: 700;
     vertical-align: center;
-    line-height: 1rem;
+    line-height: 0.5rem;
     border: 0;
     background-color: var(--gray600);
     color: var(--white);
@@ -230,86 +407,84 @@ body {
     -o-transform: translateY(5px);
 }
 
-/* Chrome, Safari, Edge, Opera */
+/* Remove arrow buttons from wager input */
+
+/* >> Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-/* Firefox */
+/* >> Firefox */
 input[type=number] {
     -moz-appearance: textfield;
+}
+
+.roll-container-header {
+    font-size: 3rem;
 }
 
 /* Giant Roll */
 #giant-roll-container {
     background-color: var(--gray700);
     width: 400px;
-    height: 350px;
+    height: 250px;
     position: absolute;
-    top: 50px;
-    left: 1vw;
+    display: flex;
+    top: -5px;
+    left: 50%;
     border-radius: 0 0 8px 8px;
     -webkit-border-radius: 0 0 8px 8px;
     -moz-border-radius: 0 0 8px 8px;
     -ms-border-radius: 0 0 8px 8px;
     -o-border-radius: 0 0 8px 8px;
     box-shadow: var(--gray900s) 5px 5px;
-    transform: translateY(-100%);
+    transform: translate(-50%, -100%);
     transition: transform 0.3s 0ms;
     -webkit-transition: transform 0.3s 0ms;
     -moz-transition: transform 0.3s 0ms;
     -ms-transition: transform 0.3s 0ms;
     -o-transition: transform 0.3s 0ms;
-    -webkit-transform: translateY(-100%);
-    -moz-transform: translateY(-100%);
-    -ms-transform: translateY(-100%);
-    -o-transform: translateY(-100%);
-}
-
-#giant-roll-header-container {
-    text-align: center;
-    color: var(--white);
-    position: relative;
-}
-
-#giant-roll-header-container h2 {
-    font-size: 4rem;
+    -webkit-transform: translate(-50%, -100%);
+    -moz-transform: translate(-50%, -100%);
+    -ms-transform: translate(-50%, -100%);
+    -o-transform: translate(-50%, -100%);
 }
 
 #giant-roll-result-container {
-    text-align: center;
+    color: var(--white);
     position: relative;
     width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    flex: 1 1 auto;
+    line-height: 1.3;
+    padding-bottom: 10px;
 }
+
+#giant-roll-result-container h2 {
+    position: relative;
+    font-size: 3rem;
+}
+
 #giant-roll-result {
     color: var(--white);
     font-size: 7rem;
     position: relative;
-    left: 50%;
-    top: 25%;
-    height: 100%;
-    transform: translateX(-50%);
-    -webkit-transform: translateX(-50%);
-    -moz-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    -o-transform: translateX(-50%);
+    z-index: 1;
 }
 
-#giant-roll-result::after {
-    color: var(--gray900);
-    content: "D10";
+#giant-roll-size {
     font-size: 10rem;
-    font-family: Dicier, sans-serif;
+    color: var(--gray900);
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    -webkit-transform: translateX(-50%);
-    -moz-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    -o-transform: translateX(-50%);
-    z-index: -1;
+    top: -7px;
+    z-index: 0;
 }
 
 /* Player Rolls */
@@ -317,51 +492,47 @@ input[type=number] {
     background-color: var(--gray700);
     position: absolute;
     bottom: 0px;
-    right: 1rem;
+    left: 50%;
     width: 600px;
-    height: 400px;
+    height: 250px;
     box-shadow: var(--gray900s) 5px 5px;
     border-radius: 8px 8px 0 0;
     -webkit-border-radius: 8px 8px 0 0;
     -moz-border-radius: 8px 8px 0 0;
     -ms-border-radius: 8px 8px 0 0;
     -o-border-radius: 8px 8px 0 0;
-    transform: translateY(100%);
+    transform: translate(-50%, 100%);
     transition: transform 0.3s 0ms;
     -webkit-transition: transform 0.3s 0ms;
     -moz-transition: transform 0.3s 0ms;
     -ms-transition: transform 0.3s 0ms;
     -o-transition: transform 0.3s 0ms;
-    -webkit-transform: translateY(100%);
-    -moz-transform: translateY(100%);
-    -ms-transform: translateY(100%);
-    -o-transform: translateY(100%);
+    -webkit-transform: translate(-50%, 100%);
+    -moz-transform: translate(-50%, 100%);
+    -ms-transform: translate(-50%, 100%);
+    -o-transform: translate(-50%, 100%);
 }
 
 #player-roll-header-container {
     text-align: center;
     color: var(--white);
     position: relative;
-    height: 100px;
-}
-
-#player-roll-header-container h2 {
-    font-size: 4rem;
+    height: 75px;
 }
 
 #player-roll-result-container {
     text-align: center;
     position: relative;
     width: 100%;
-    height: 150px;
+    height: 175px;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
+    line-height: 1.2;
 }
 
 .player-roll {
-    width: 100%;
     color: var(--white);
     font-size: 6rem;
     position: relative;
@@ -369,7 +540,6 @@ input[type=number] {
 }
 
 .player-roll::after {
-    color: var(--gray400);
     content: "D6";
     font-size: 7rem;
     font-family: Dicier, sans-serif;
@@ -384,22 +554,28 @@ input[type=number] {
     z-index: -1;
 }
 
-#player-roll-total-container {
-    height: 150px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+#player-roll-1.player-roll::after {
+    color: var(--cyan600);
+}
+
+#player-roll-2.player-roll::after {
+    color: var(--teal500);
 }
 
 #player-roll-total {
     color: var(--white);
     font-size: 7rem;
+    text-shadow: 5px 5px var(--gray900s);
+    margin: -0 -25px;
 }
 
+.result-other-text {
+    color: var(--white);
+    font-size: 3rem;
+    margin: 0 -50px;
+}
 /* Round Results */
 #round-results-container {
-    width: 800px;
     text-align: center;
     color: var(--white);
     position: relative;
@@ -422,6 +598,7 @@ input[type=number] {
 
 #round-results-header {
     font-size: 6rem;
+    text-shadow: 5px 5px var(--gray900s);
 }
 
 #round-results-desc {
@@ -467,12 +644,6 @@ input[type=number] {
     -o-transform: translateY(5px);
 }
 
-/* GAME RULES */
-#game-rules {
-    background-color: yellow;
-    display: none;
-}
-
 #dev-buttons-container {
     display: flex;
     flex-direction: column;
@@ -494,6 +665,7 @@ input[type=number] {
     -moz-border-radius: 8px;
     -ms-border-radius: 8px;
     -o-border-radius: 8px;
+    z-index: 999;
 }
 
 #dev-buttons-container button {
